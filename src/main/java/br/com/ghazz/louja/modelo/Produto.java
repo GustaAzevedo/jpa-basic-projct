@@ -1,9 +1,12 @@
 package br.com.ghazz.louja.modelo;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +22,32 @@ public class Produto {
 	private String name;
 	@Column(name = "descricao")
 	private String desc;
+	@Column(name = "preco")
+	private BigDecimal price;
 	
+	private LocalDate dataCadastro = LocalDate.now();
+	@Enumerated(EnumType.STRING)
+	private Categoria categoria;
+	
+	public Produto(String name, String desc, BigDecimal price, Categoria categoria) {
+		super();
+		this.name = name;
+		this.desc = desc;
+		this.price = price;
+		this.categoria = categoria;
+	}
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -44,6 +72,5 @@ public class Produto {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	@Column(name = "preco")
-	private BigDecimal price;
+	
 }
