@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +25,9 @@ public class Produto {
 	private String desc;
 	@Column(name = "preco")
 	private BigDecimal price;
-	
+	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro = LocalDate.now();
-	@Enumerated(EnumType.STRING)
+	@ManyToOne
 	private Categoria categoria;
 	
 	public Produto(String name, String desc, BigDecimal price, Categoria categoria) {
@@ -36,6 +37,11 @@ public class Produto {
 		this.price = price;
 		this.categoria = categoria;
 	}
+	
+	public Long getId() {
+		return id;
+	}
+	
 	public LocalDate getDataCadastro() {
 		return dataCadastro;
 	}
@@ -48,12 +54,7 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
