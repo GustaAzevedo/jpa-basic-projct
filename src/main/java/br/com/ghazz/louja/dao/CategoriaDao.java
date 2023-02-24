@@ -13,10 +13,17 @@ public class CategoriaDao {
 		this.em = em;
 	}
 	
-	public void SaveCategoria(Categoria categoria) {
-		em.persist(categoria);
+	public void save(Categoria categoria) {
+		this.em.persist(categoria);
 	}
 	
-
+	public void update(Categoria categoria) {
+		this.em.merge(categoria);
+	}
+	
+	public void delete(Categoria categoria) {
+		categoria = em.merge(categoria);
+		this.em.remove(categoria);;
+	}
 	
 }
