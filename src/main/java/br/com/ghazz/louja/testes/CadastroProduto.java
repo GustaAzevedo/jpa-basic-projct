@@ -20,11 +20,12 @@ public class CadastroProduto {
 		EntityManager em = JPAUtil.getEntityManager();
 		ProdutoDao produtoDao = new ProdutoDao(em);
 		
-		List<Produto> p = produtoDao.searchAll();
+		List<Produto> p = produtoDao.searchByCategoriaNome("Usados");
 		
 		p.forEach(p2 -> System.out.println(p2.getName()));
 		
-		
+		BigDecimal preco = produtoDao.searchProductPriceByName("S22");
+		System.out.println("Preço do celular: " + preco);
 	}
 	
 	public static void cadastrarProduto() {
