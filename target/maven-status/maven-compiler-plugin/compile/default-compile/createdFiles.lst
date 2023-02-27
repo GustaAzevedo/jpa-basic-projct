@@ -1,0 +1,6 @@
+br\com\ghazz\louja\dao\CategoriaDao.class
+br\com\ghazz\louja\util\JPAUtil.class
+br\com\ghazz\louja\modelo\Categoria.class
+br\com\ghazz\louja\dao\ProdutoDao.class
+br\com\ghazz\louja\testes\CadastroProduto.class
+br\com\ghazz\louja\modelo\Produto.class
