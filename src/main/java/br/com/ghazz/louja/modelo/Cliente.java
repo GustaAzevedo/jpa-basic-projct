@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_categoria")
-public class Categoria {
+@Table(name = "tb_cliente")
+public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -17,22 +17,19 @@ public class Categoria {
 	@Column(name = "nome")
 	private String name;
 	
-	public Categoria() {
+	@Column(name = "cpf")
+	private String cpf;
+
+	public Cliente(String name, String cpf) {
+		super();
+		this.name = name;
+		this.cpf = cpf;
+	}
+
+	public Cliente() {
 		super();
 	}
 	
-	public Categoria(String name) {
-		super();
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	
 }

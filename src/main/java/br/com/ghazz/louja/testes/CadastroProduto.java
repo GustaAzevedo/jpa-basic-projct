@@ -2,70 +2,75 @@ package br.com.ghazz.louja.testes;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import br.com.ghazz.louja.dao.CategoriaDao;
+import br.com.ghazz.louja.dao.ClienteDao;
+import br.com.ghazz.louja.dao.PedidoDao;
 import br.com.ghazz.louja.dao.ProdutoDao;
 import br.com.ghazz.louja.modelo.Categoria;
+import br.com.ghazz.louja.modelo.Cliente;
+import br.com.ghazz.louja.modelo.ItemPedido;
+import br.com.ghazz.louja.modelo.Pedido;
 import br.com.ghazz.louja.modelo.Produto;
 import br.com.ghazz.louja.util.JPAUtil;
+import br.com.ghazz.louja.vo.OrderTotalReportVo;
 
 public class CadastroProduto {
 
 	public static void main(String[] args) {
-		cadastrarProduto();
-		EntityManager em = JPAUtil.getEntityManager();
-		ProdutoDao produtoDao = new ProdutoDao(em);
-		
-		List<Produto> p = produtoDao.searchByCategoriaNome("Usados");
-		
-		p.forEach(p2 -> System.out.println(p2.getName()));
-		
-		BigDecimal preco = produtoDao.searchProductPriceByName("S22");
-		System.out.println("Preço do celular: " + preco);
-	}
-	
-	public static void cadastrarProduto() {
-		Categoria categoria = new Categoria("Usados");				
-		
-		Produto celular = new Produto("Iphone 14","The second best camera"
-				,new BigDecimal("11000"), categoria);
-		
-		Categoria categoria2 = new Categoria("Usados2");				
-		
-		Produto celular2 = new Produto("S22","The best camera"
-				,new BigDecimal("9000"), categoria2);
-
-		EntityManager em = JPAUtil.getEntityManager();
-		em.getTransaction().begin();
-		
-		em.persist(categoria);
-		em.persist(celular);
-		em.persist(categoria2);
-		em.persist(celular2);
-		celular.setName("Google phone");
-		
-		em.getTransaction().commit();
-	    em.close();
-		
-		
 		/*
-		EntityManager em = JPAUtil.getEntityManager();
-
-		CategoriaDao categoriaDao = new CategoriaDao(em);
-		ProdutoDao produtoDao = new ProdutoDao(em);
+		Cliente cliente = new Cliente("Yuri", "65419886444");
 		
+		Pedido pedido = new Pedido(cliente);
+		
+		Categoria categoria = new Categoria("Smartwatch Xiaomi");
+		
+		Produto produto = new Produto("Xiaomi watch 3", "The best smartwatch IOS", new BigDecimal("11000.08"), categoria);
+		
+		ItemPedido itemPedido = new ItemPedido(pedido, produto, 3);
+		pedido.adicionaItemPedido(itemPedido);
+		
+		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
 		
+		ClienteDao clienteDao = new ClienteDao(em);	
+		CategoriaDao categoriaDao = new CategoriaDao(em);
+		
+		clienteDao.save(cliente);
 		categoriaDao.save(categoria);
-		produtoDao.save(celular);
-				
+		
 		em.getTransaction().commit();
-		em.close();
+		cliente = em.merge(cliente);
+		categoria = em.merge(categoria);
+		
+		em.getTransaction().begin();
+		ProdutoDao produtoDao = new ProdutoDao(em);
+		
+		PedidoDao pedidoDao = new PedidoDao(em);
+		
+		produtoDao.save(produto);
+		em.getTransaction().commit();
+		
+		em.getTransaction().begin();
+		pedidoDao.save(pedido);
+		em.getTransaction().commit();
+		
+		BigDecimal totalValorPedidoVendido = pedidoDao.totalOrderAmount();
+		System.out.println("Total vendido: " + totalValorPedidoVendido);
 		*/
+		
+		EntityManager em = JPAUtil.getEntityManager();
+		em.getTransaction().begin();
+		
+		PedidoDao pedidoDao = new PedidoDao(em);
+		List<OrderTotalReportVo> pedidos = pedidoDao.salesReport();
+		
+		pedidos.forEach(System.out::println);
+		
 	}
-
 }

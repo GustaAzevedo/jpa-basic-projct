@@ -14,19 +14,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_produtos")
+@Table(name = "tb_produto")
 public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(name = "nome")
 	private String name;
+	
 	@Column(name = "descricao")
 	private String desc;
+	
 	@Column(name = "preco")
 	private BigDecimal price;
+	
 	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro = LocalDate.now();
+	
 	@ManyToOne
 	private Categoria categoria;
 	
