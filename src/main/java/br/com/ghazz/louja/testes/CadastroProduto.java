@@ -68,9 +68,12 @@ public class CadastroProduto {
 		em.getTransaction().begin();
 		
 		PedidoDao pedidoDao = new PedidoDao(em);
-		List<OrderTotalReportVo> pedidos = pedidoDao.salesReport();
+		Pedido pedido = pedidoDao.searchByIdWithCliente(22L);
 		
-		pedidos.forEach(System.out::println);
+		em.close();
+		
+		System.out.print(pedido.getCliente().getName());
+		
 		
 	}
 }
