@@ -1,6 +1,7 @@
 package br.com.ghazz.louja.modelo;
 
-import javax.persistence.Column;
+
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,16 +15,12 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nome")
-	private String name;
+	@Embedded
+	private DadosPessoais dadosPessoais;
 	
-	@Column(name = "cpf")
-	private String cpf;
-
 	public Cliente(String name, String cpf) {
 		super();
-		this.name = name;
-		this.cpf = cpf;
+		this.dadosPessoais = new DadosPessoais(name,cpf);
 	}
 
 	public Cliente() {
@@ -39,19 +36,7 @@ public class Cliente {
 	}
 
 	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		return this.dadosPessoais.getName();
 	}
 	
 	

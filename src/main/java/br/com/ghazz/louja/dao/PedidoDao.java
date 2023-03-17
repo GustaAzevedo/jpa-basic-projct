@@ -6,8 +6,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import br.com.ghazz.louja.modelo.Pedido;
+import br.com.ghazz.louja.modelo.Produto;
 import br.com.ghazz.louja.vo.OrderTotalReportVo;
 
 public class PedidoDao {
@@ -59,32 +62,5 @@ public class PedidoDao {
 				.getSingleResult();
 	}
 	
-	public List<Pedido> searchByParameters(String nome, BigDecimal preco, LocalDate dataCadastro){
-		String jpql = "SELECT * FROM Produto p WHERE 1=1";
-
-		if(nome != null && !nome.trim().isEmpty()) {
-			jpql += " AND p.name = :nome ";
-		}
-		if(preco != null) {
-			jpql += " AND p.price = :preco";
-		}
-		if(dataCadastro != null) {
-			jpql += " AND p.dataCadastro = :dataCadastro";
-		}
-		
-		TypedQuery<Pedido> query = em.createQuery(jpql, Pedido.class);
-		
-		if(nome != null && !nome.trim().isEmpty()) {
-			query.setParameter("nome", nome);
-		}
-		if(preco != null) {
-			query.setParameter("preco", preco);
-		}
-		if(dataCadastro != null) {
-			query.setParameter("dataCadastro", dataCadastro);
-		}
-		
-		return query.getResultList();		
-		
-	}
+	
 } 

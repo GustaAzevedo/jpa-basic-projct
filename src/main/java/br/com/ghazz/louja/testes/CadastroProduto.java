@@ -67,12 +67,16 @@ public class CadastroProduto {
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
 		
-		PedidoDao pedidoDao = new PedidoDao(em);
-		Pedido pedido = pedidoDao.searchByIdWithCliente(22L);
+		ProdutoDao dao = new ProdutoDao(em);
+		dao.searchByParametersWithCriteria("Iphone 14", new BigDecimal("95000.00"), null);
+		
+		ClienteDao daoCliente = new ClienteDao(em);
+		Cliente cli = daoCliente.findByNome("Gustavo");
+		System.out.println(cli.getName());
 		
 		em.close();
 		
-		System.out.print(pedido.getCliente().getName());
+		
 		
 		
 	}

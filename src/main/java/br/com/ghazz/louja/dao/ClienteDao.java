@@ -25,4 +25,11 @@ public class ClienteDao {
 		this.em.remove(cliente);;
 	}
 	
+	public Cliente findByNome(String nome) {
+		String jpql = "SELECT c FROM Cliente as c where c.dadosPessoais.name = :nome";
+		return em.createQuery(jpql, Cliente.class)
+				.setParameter("nome", nome)
+				.getSingleResult();
+	}
+	
 }
