@@ -1,11 +1,18 @@
 package br.com.ghazz.louja.modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class DadosPessoais {
+public class DadosPessoais implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1872383799068853633L;
+
 	@Column(name = "nome")
 	private String name;
 	
